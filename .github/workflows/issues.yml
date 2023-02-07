@@ -1,0 +1,9 @@
+name: On Issues
+on: [issues, workflow_dispatch]
+jobs:
+  display_issue_info:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Display issue info
+        run: echo "New issue ${{toJSON(issue)}}"
+
