@@ -1,0 +1,34 @@
+name: Deploy the app
+on:
+  pull_request:
+    types:
+      - opened
+    branches:
+      - main
+      - 'dev-*' # Other characters but slashes
+      - 'feat/**' # Two * means that can include slashes
+  push:
+    branches:
+      - main
+      - 'dev-*' # Other characters but slashes
+      - 'feat/**' # Two * means that can include slashes
+    paths-ignore:
+      - ".github/workflows/*"
+  workflow_dispatch:
+jobs:
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get the code
+        uses: actions/checkout@v3
+      - name: Install NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install Dependencies
+        run: npm ci
+      - name: Build the app
+        run: npm run build
+      - name: Deployment
+        run: echo 'Deploying...'
