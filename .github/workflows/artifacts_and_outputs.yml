@@ -18,6 +18,8 @@ jobs:
   build:
     needs: test
     runs-on: ubuntu-latest
+    outputs:
+      script-file: ${{steps.publish.outputs.script-file}}
     steps:
       - name: Get code
         uses: actions/checkout@v3
@@ -32,9 +34,14 @@ jobs:
           path: | # We can choose multiple artifacts like this
             dist
             package.json
+      - name: Set name in output
+        id: publish
+        run: find dist/assets/*.js -type f -execdir echo 'script-files={}' >> $GITHUB_OUTPUT ';'
   deploy:
     needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Deploy
         run: echo "Deploying..."
+      - name: Echo JS filename
+        run: echo "${{ needs.build.outputs.script_file }}"
