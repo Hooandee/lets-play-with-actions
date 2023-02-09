@@ -44,4 +44,4 @@ jobs:
       - name: Deploy
         run: echo "Deploying..."
       - name: Echo JS filename
-        run: echo "${{ needs.build.outputs.script_file }}"
+        run: echo "${{ needs.build.outputs.script-file }}"
