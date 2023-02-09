@@ -34,7 +34,7 @@ jobs:
       - name: Cache dependencies
         uses: actions/cache@v3
         with:
-          path: ${{ needs.test.outputs.dir }}
+          path: ${{ needs.test.outputs.npm-dir }}
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
         run: npm ci
