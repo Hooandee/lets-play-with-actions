@@ -2,6 +2,7 @@ name: Matrix Demo
 on: push
 jobs:
   build:
+    continue-on-error: true # To continue with the matrix execution even if some combination fails
     strategy: 
       matrix: # For running on different configurations
         node-version: [12, 14, 16]
